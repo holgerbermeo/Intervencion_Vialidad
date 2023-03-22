@@ -1,0 +1,32 @@
+<!-- Agregar Leaflet CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.3.1/leaflet.css" />
+
+<!-- Agregar Leaflet JS -->
+<script src="https://cdn.jsdelivr.net/leaflet/1.3.1/leaflet.js"></script>
+
+<!-- Agregar Leaflet.WMS si lo necesitas -->
+<script src="https://cdn.jsdelivr.net/leaflet.wms/0.0.7/leaflet.wms.js"></script>
+
+<div id="mapid" style="height: 500px;"></div>
+
+// Configurar el mapa y la vista
+var map = L.map('mapid').setView([-0.989839776814326, -0.114002959173688], 13);
+
+// Agregar la capa de GeoServer
+var geoServerLayer = L.tileLayer.wms('http://34.125.61.48/geoserver/wms', {
+    layers: 'Geo:vista_capa',
+    format: 'image/png',
+    transparent: true
+}).addTo(map);
+
+// Agregar control de zoom
+L.control.zoom().addTo(map);
+
+// Cambiar el estilo del mapa
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1
+}).addTo(map);
